@@ -4,10 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  mdast-util-to-hast: 13.2.1
-  rollup: 4.59.0
-
 importers:
 
   .:
