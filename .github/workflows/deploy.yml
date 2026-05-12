@@ -19,23 +19,34 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        # 🔧 升级 Node.js 到 22.x（pnpm v11.1.0 要求 >= 22.13）
+        node-version: [22.x]
 
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v2
+
+      # 🔧 启用 Corepack，确保使用 package.json 中指定的包管理器版本
+      - name: Enable Corepack
+        run: corepack enable
+
+      - uses: pnpm/action-setup@v4
         with:
-          version: 9.15.4
+          # 🔧 保持与你本地一致的 pnpm 版本
+          version: 11.1.0
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
+
       - name: Install pnpm dependencies
-        run: pnpm install
+        # 🔧 CI 环境推荐使用 --frozen-lockfile 确保依赖一致性
+        run: pnpm install --frozen-lockfile
+
       - name: Run build task
         run: pnpm run docs:build
+
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v4
         with:
