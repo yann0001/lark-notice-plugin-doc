@@ -138,7 +138,41 @@ pipeline {
     }
 }
 ```
-## 5. 卡片消息
+## 5. Markdown 消息
+
+用于发送 Markdown 格式消息，在飞书中会渲染为卡片样式。
+
+```shell
+pipeline {
+    agent any
+    stages {
+        stage('markdown'){
+            steps {
+                echo '发送Markdown消息...'
+            }
+            post {
+                success {
+                    lark (
+                        robot: 'f72aa1bb-0f0b-47c7-8387-272d266dc25c',
+                        type: 'MARKDOWN',
+                        title: '📢 Jenkins 构建通知',
+                        text: [
+                            "📋 **任务名称**：[${JOB_NAME}](${JOB_URL})",
+                            "🔢 **任务编号**：[${BUILD_DISPLAY_NAME}](${BUILD_URL})",
+                            "🌟 **构建状态**: <text_tag color='green'>成功</text_tag>",
+                            "🕐 **构建用时**: ${currentBuild.duration} ms",
+                            "👤 **执  行 者**: ${env.BUILD_USER}",
+                            "<at id=all></at>"
+                        ]
+                    )
+                }
+            }
+        }
+    }
+}
+```
+
+## 6. 卡片消息
 
 适用于需要展示状态信息、按钮跳转和结构化内容的场景。
 
@@ -185,7 +219,7 @@ pipeline {
     }
 }
 ```
-## 6. 带图片的卡片消息
+## 7. 带图片的卡片消息
 
 可通过 `topImg` 和 `bottomImg` 在卡片正文顶部或底部插入图片。
 
