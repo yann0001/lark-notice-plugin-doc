@@ -49,6 +49,8 @@
 
 ![](./img/faq-signature.png)
 
+> 更多配置项（代理、重试策略、消息语言、安全策略等）请参考 [高级配置](/guide/feature/advanced)。
+
 ### Jenkins 重启
 
 插件安装或关键配置调整完成后，可通过以下地址执行 Jenkins 重启：

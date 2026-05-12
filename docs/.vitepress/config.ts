@@ -56,6 +56,7 @@ export default defineConfig({
                         {text: '插件简介', link: '/guide/'},
                         {text: '快速开始', link: '/guide/QUICK-START'},
                         {text: '环境变量', link: "/guide/feature/variables"},
+                        {text: '高级配置', link: "/guide/feature/advanced"},
                         {text: '常见问题', link: '/guide/FAQ'},
                         {text: '改动日志', link: '/guide/CHANGELOG'},
                     ],
