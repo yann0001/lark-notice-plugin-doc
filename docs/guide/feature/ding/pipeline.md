@@ -141,6 +141,7 @@ pipeline {
                         ats: [
                           '186888888888'
                         ],
+                        verticalButton: true,
                         buttons: [
                            [
                               title: "更改记录",
@@ -151,6 +152,44 @@ pipeline {
                               url: "${BUILD_URL}console"
                            ]
                         ]
+                    )
+                }
+            }
+        }
+    }
+}
+```
+
+## 5. 单按钮卡片消息
+
+使用 `singleTitle` 和 `singleUrl` 可展示仅含单个跳转按钮的卡片。启用后 `buttons` 配置将失效。
+
+```shell
+pipeline {
+    agent any
+    stages {
+        stage('single-card'){
+            steps {
+                echo '发送单按钮卡片消息...'
+            }
+            post {
+                success {
+                    dingTalk (
+                        robot: 'f72aa1bb-0f0b-47c7-8387-272d266dc25b',
+                        type: 'CARD',
+                        title: '📢 Jenkins 构建通知',
+                        text: [
+                            "## <font color='blue'>📢 Jenkins 构建通知</font>",
+                            "---",
+                            "📋 **任务名称**：[${JOB_NAME}](${JOB_URL})  ",
+                            "🔢 **任务编号**：[${BUILD_DISPLAY_NAME}](${BUILD_URL})  ",
+                            "🌟 **构建状态**: ${currentBuild.currentResult}  ",
+                            "🕐 **构建用时**: ${currentBuild.duration} ms  ",
+                            "👤 **执  行 者**: ${env.BUILD_USER}  "
+                        ],
+                        atAll: false,
+                        singleTitle: '查看详情',
+                        singleUrl: "${BUILD_URL}"
                     )
                 }
             }

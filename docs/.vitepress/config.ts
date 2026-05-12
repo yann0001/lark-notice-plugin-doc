@@ -22,7 +22,7 @@ export default defineConfig({
             provider: 'local',
         },
         editLink: {
-            pattern: 'https://github.com/721806280/lark-notice-plugin-doc/edit/2.0.0/docs/:path',
+            pattern: 'https://github.com/721806280/lark-notice-plugin-doc/edit/main/docs/:path',
             text: '在 GitHub 上编辑此页面'
         },
         lastUpdated: {
