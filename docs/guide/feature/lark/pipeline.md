@@ -2,7 +2,7 @@
 
 以下示例适用于在 `Pipeline` 中调用 `lark` 步骤发送消息。
 
-`robot` 表示机器人 ID，可在 `飞书机器人配置` 页面中查看。
+`robot` 表示机器人 ID，可在 `Lark Notice` 机器人配置中查看。
 
 ## 1. 文本消息
 
@@ -140,7 +140,7 @@ pipeline {
 ```
 ## 5. Markdown 消息
 
-用于发送 Markdown 格式消息，在飞书中会渲染为卡片样式。
+用于发送 Markdown 格式消息，在 `Lark / 飞书` 中会渲染为卡片样式。
 
 ```shell
 pipeline {

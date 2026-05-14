@@ -6,13 +6,21 @@
 
 | 模式 | 说明 | 适用场景 |
 |------|------|---------|
-| 完整 Webhook | 直接粘贴完整的 Webhook URL | 已从平台获取完整地址 |
-| 基础域名 + Token | 分别填写基础域名和 Token，插件自动拼接 | 需要自定义域名或私有部署 |
+| 平台默认模式 | 选择平台后只输入 `Token` 或 `Key`，插件自动拼接官方 Webhook | 官方 SaaS 地址，优先推荐 |
+| 自定义 Webhook | 直接粘贴完整 Webhook URL | 已拿到完整地址、使用私有域名、历史配置迁移 |
 
-选择平台后，插件会自动识别协议类型（飞书 / Lark / 钉钉），并提供对应的输入提示。
+选择平台后，机器人编辑器会自动切换输入提示、预览最终 Webhook，并记录对应协议类型。
 
 > [!TIP]
-> 也支持自定义飞书域名，只要 Webhook 路径仍为 `/open-apis/bot/v2/hook/xxxx`。
+> `Lark / 飞书` 支持自定义域名，只要 Webhook 路径仍为 `/open-apis/bot/v2/hook/{token}`。
+
+不同平台的默认输入内容如下：
+
+| 平台 | 默认输入值 | 自动拼接结果 |
+|------|-----------|-------------|
+| Lark / 飞书 | 机器人 `Token` | `https://open.larksuite.com/open-apis/bot/v2/hook/{token}` 或 `https://open.feishu.cn/open-apis/bot/v2/hook/{token}` |
+| 钉钉 | 机器人 `access_token` | `https://oapi.dingtalk.com/robot/send?access_token={token}` |
+| 企业微信 | 群机器人 `key` | `https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={key}` |
 
 ## 2. 安全策略
 
@@ -23,6 +31,9 @@
 | **关键词（KEY）** | 设定后，只有包含关键词的消息内容才会被正常发送，多个值使用逗号分隔。 |
 | **签名密钥（SECRET）** | 使用 HMAC-SHA256 对消息进行签名验证。需在机器人安全设置中获取密钥。 |
 | **禁用 SSL 验证（NO_SSL）** | 禁用 Java HTTP 客户端中的 SSL/TLS 证书验证。 |
+
+> [!NOTE]
+> 企业微信群机器人本身没有飞书 / 钉钉那种签名验签流程，但插件仍支持关键词校验与 SSL 控制等通用策略。
 
 > [!WARNING]
 > 禁用 SSL 验证会降低连接的安全性，可能导致中间人攻击等安全风险。建议仅在受控测试环境中使用此选项。
@@ -56,6 +67,25 @@
 > [!NOTE]
 > 仅影响内置卡片标题与默认模板，自定义消息内容不做翻译。
 
+## 4.1 平台消息能力差异
+
+虽然插件对外统一暴露了消息模式，但不同平台底层支持能力并不完全相同：
+
+| 平台 | 重点支持 |
+|------|---------|
+| Lark / 飞书 | `TEXT`、`IMAGE`、`SHARE_CHAT`、`POST`、`MARKDOWN`、`CARD`，以及 Freestyle 自定义 JSON 卡片 |
+| 钉钉 | `TEXT`、`LINK`、`MARKDOWN`、`CARD` |
+| 企业微信 | `TEXT`、`MARKDOWN`、`CARD` |
+
+企业微信的补充说明：
+
+- `Freestyle` 下更推荐使用默认卡片模式；如需精确控制消息结构，优先使用 `Pipeline` 的 `wechatWork` 步骤。
+- `Pipeline` 中传入 `LINK` 或 `POST` 时，插件会按 `MARKDOWN` 发送。
+- `IMAGE` 不是企业微信独立支持的消息类型；需要图片时，优先使用卡片 `picUrl` 或 `topImg.imgKey` 中的外部图片 URL。
+- 企业微信卡片使用 `template_card.news_notice` 模板，不是飞书那种自由结构卡片。
+- 企业微信卡片图片需要可直接访问的 `http/https` 地址；如果未提供可用图片地址，插件会回退到默认 Jenkins 图片。
+- 企业微信卡片最多展示 3 个跳转按钮。
+
 ## 5. 代理配置
 
 当 Jenkins 无法直连机器人 Webhook 地址时，可在全局配置中设置网络代理。
@@ -67,7 +97,7 @@
 | `host` | 代理服务主机，如 `127.0.0.1` |
 | `port` | 代理服务端口，如 `1080` |
 
-代理配置位于 `Manage Jenkins` -> `Lark Notice` -> `代理` 区域。
+代理配置位于 `Manage Jenkins` -> `Lark Notice` 或 `System Configuration` 页面中的 `代理` 区域。
 
 ## 6. 详细日志
 

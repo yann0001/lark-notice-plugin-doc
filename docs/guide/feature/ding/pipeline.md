@@ -2,7 +2,7 @@
 
 以下示例适用于在 `Pipeline` 中调用 `dingTalk` 步骤发送消息。
 
-`robot` 表示机器人 ID，可在 `钉钉机器人配置` 页面中查看。
+`robot` 表示机器人 ID，可在 `Lark Notice` 机器人配置中查看。
 
 ## 1. 文本消息
 

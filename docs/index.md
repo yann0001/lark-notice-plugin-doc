@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Lark Notice Plugin"
   text: "Jenkins 协作通知插件"
-  tagline: "接入 Lark / 飞书 / 钉钉，适配 Freestyle 与 Pipeline。"
+  tagline: "接入 Lark / 飞书 / 钉钉 / 企业微信，适配 Freestyle 与 Pipeline。"
   image:
     src: /logo.png
     alt: Plugin Logo
@@ -20,11 +20,11 @@ hero:
 features:
   - icon: 🔗
     title: 多平台支持
-    details: 支持 Lark、飞书与钉钉机器人，适合不同团队的协作通知场景。
+    details: 支持 Lark、飞书、钉钉与企业微信机器人，统一 Jenkins 通知入口。
   - icon: ⚙️
     title: 兼容主流任务类型
     details: 兼容 Freestyle 与 Pipeline，可沿用现有 Jenkins 作业方式配置通知。
   - icon: 📨
     title: 多消息类型
-    details: 提供文本、图片、富文本、卡片与自定义 JSON，适配不同通知内容。
+    details: 提供文本、Markdown、链接、卡片、富文本，以及 Lark / 飞书场景下的自定义 JSON 卡片。
 ---

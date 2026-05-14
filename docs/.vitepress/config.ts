@@ -4,7 +4,7 @@ import {VERSION} from "./constants";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
     title: "Lark Notice",
-    description: '用于将构建结果推送到飞书平台',
+    description: '用于将 Jenkins 构建结果推送到 Lark、飞书、钉钉、企业微信等协作平台',
     base: "/lark-notice-plugin-doc/",
     head: [['link', {rel: 'icon', type: 'image/x-icon', href: '/lark-notice-plugin-doc/favicon.ico'}]],
     transformPageData: (pageData: PageData, ctx: TransformPageContext) => {
@@ -62,7 +62,7 @@ export default defineConfig({
                     ],
                 },
                 {
-                    text: "飞书平台",
+                    text: "Lark / 飞书",
                     items: [
                         {text: 'Freestyle', link: "/guide/feature/lark/freestyle"},
                         {text: 'Pipeline', link: "/guide/feature/lark/pipeline"},
@@ -73,6 +73,13 @@ export default defineConfig({
                     items: [
                         {text: 'Freestyle', link: "/guide/feature/ding/freestyle"},
                         {text: 'Pipeline', link: "/guide/feature/ding/pipeline"},
+                    ],
+                },
+                {
+                    text: "企业微信平台",
+                    items: [
+                        {text: 'Freestyle', link: "/guide/feature/wechat-work/freestyle"},
+                        {text: 'Pipeline', link: "/guide/feature/wechat-work/pipeline"},
                     ],
                 }
             ],

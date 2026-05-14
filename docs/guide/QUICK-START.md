@@ -4,6 +4,7 @@
 - [Lark 自定义机器人指南](https://open.larksuite.com/document/client-docs/bot-v3/add-custom-bot)
 - [飞书自定义机器人指南](https://open.feishu.cn/document/client-docs/bot-v3/add-custom-bot)
 - [钉钉自定义机器人指南](https://open.dingtalk.com/document/orgapp/custom-robots-send-group-messages)
+- [企业微信自定义机器人指南](https://developer.work.weixin.qq.com/document/path/91770)
 
 ## 环境准备
 
@@ -35,21 +36,29 @@
 
 ### 全局配置
 
-打开 `Manage Jenkins` 页面，找到 `Lark Notice` 配置项。
+打开 `Manage Jenkins` 页面后，可通过 `Lark Notice` 管理入口进入，或在 `System Configuration` 页面中找到同名配置区块。
 
 ![](./img/faq-manage.png)
 
-进入全局配置页面后，可新增机器人、配置签名校验和通知时机等参数。
+进入全局配置页面后，可新增机器人、配置安全策略、重试策略和通知时机等参数。
 
 ![](./img/faq-notification-timing.png)
 
 ### 添加机器人
 
-添加机器人时，请根据目标平台填写对应的 `Webhook`、`加密密钥` 及相关配置项。
+添加机器人时，请先选择目标平台，再按提示填写 `Token / Key`，或切换到 `自定义` 模式填写完整 `Webhook`。
 
 ![](./img/faq-signature.png)
 
-> 更多配置项（代理、重试策略、消息语言、安全策略等）请参考 [高级配置](/guide/feature/advanced)。
+当前版本的机器人编辑器支持以下方式：
+
+- `Lark / 飞书`：默认输入机器人 `Token`，插件自动拼接官方 Webhook；如需私有域名或完整地址，请切换为 `自定义`。
+- `钉钉`：默认输入 `access_token`，插件自动拼接官方 Webhook；如果已拿到完整 Webhook，也可以切换为 `自定义`。
+- `企业微信`：默认输入群机器人 `key`，插件自动拼接官方 Webhook；如果需要完整地址，也可以切换为 `自定义`。
+
+保存后建议先点击机器人配置中的 `发送测试消息`，确认当前 Jenkins 网络、签名策略和代理设置均可正常访问目标平台。
+
+> 更多配置项（代理、重试策略、消息语言、安全策略、配置导入导出等）请参考 [高级配置](/guide/feature/advanced)。
 
 ### Jenkins 重启
 
