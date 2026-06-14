@@ -119,7 +119,7 @@ export default defineConfig({
                 icon: {
                     svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M19 2H14c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 16h-5V4h5v14zM10 4H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h5c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V6h5v14z"/></svg>'
                 },
-                link: 'https://721806280.github.io/doc-diff-vision'
+                link: 'https://721806280.github.io/doc-diff-pro'
             }
         ],
         footer: {
